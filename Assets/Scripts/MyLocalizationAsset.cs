@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Localization
 {
     [CreateAssetMenu(fileName = "LocalizationAsset", menuName = "Localization/LocalizationAsset")]
-    public class LocalizationAsset : ScriptableObject
+    public class MyLocalizationAsset : ScriptableObject
     {
         public LanguageInfo[] languageInfos = new LanguageInfo[0];
         public string[] keys = new string[0];

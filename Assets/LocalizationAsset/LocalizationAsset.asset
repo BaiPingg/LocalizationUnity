@@ -13,10 +13,28 @@ MonoBehaviour:
   m_Name: LocalizationAsset
   m_EditorClassIdentifier: 
   languageInfos:
-  - language: 0
-    stringInfo: []
-  - language: 0
-    stringInfo: []
-  - language: 0
-    stringInfo: []
-  keys: []
+  - language: 10
+    stringInfo:
+    - key: 
+      value: start
+    - key: 
+      value: exit
+    - key: 
+      value: menu
+    - key: 
+      value: 
+  - language: 40
+    stringInfo:
+    - key: 
+      value: "\u5F00\u59CB"
+    - key: 
+      value: "\u9000\u51FA"
+    - key: 
+      value: "\u83DC\u5355"
+    - key: 
+      value: 
+  keys:
+  - start
+  - exit
+  - menu
+  - 

@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEditor;
 namespace Localization
 {
-    [CustomEditor(typeof(LocalizationAsset))]
+    [CustomEditor(typeof(MyLocalizationAsset))]
     public class LocalizationEditor : Editor
     {
-        LocalizationAsset asset;
+        MyLocalizationAsset asset;
         private void Awake()
         {
-            asset = (LocalizationAsset)target;
+            asset = (MyLocalizationAsset)target;
         }
 
         public override void OnInspectorGUI()
