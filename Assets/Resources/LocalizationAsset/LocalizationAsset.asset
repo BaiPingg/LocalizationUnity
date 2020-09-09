@@ -14,37 +14,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   languageInfos:
   - language: 10
-    stringInfo:
-    - key: 
-      value: start
-    - key: 
-      value: exit
-    - key: 
-      value: menu
-    - key: 
-      value: hello,iam iron man
+    localizationAssetValues:
+    - text: 
+      sprite: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 1cbd7881bb52a4b24ba53f7ee709d341, type: 3}
+    - text: 
+      sprite: {fileID: 21300000, guid: 79b95fdecc93b474eab20cdc23d2d415, type: 3}
+      audioClip: {fileID: 0}
+    - text: 
+      sprite: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 283ca1f3112da4f4ea91ba44520eb7dd, type: 3}
+    - text: start
+      sprite: {fileID: 0}
+      audioClip: {fileID: 0}
+    - text: exit
+      sprite: {fileID: 0}
+      audioClip: {fileID: 0}
   - language: 6
-    stringInfo:
-    - key: 
-      value: "\u5F00\u59CB"
-    - key: 
-      value: "\u9000\u51FA"
-    - key: 
-      value: "\u83DC\u5355"
-    - key: 
-      value: "\u4F60\u597D\uFF01\u6211\u662F\u94A2\u94C1\u4FA0\u3002"
-  - language: 14
-    stringInfo:
-    - key: start
-      value: begin
-    - key: exit
-      value: quit
-    - key: menu
-      value: food
-    - key: hello,iam iron man
-      value: i am spider man!
-  keys:
-  - start
-  - exit
-  - menu
-  - hello,iam iron man
+    localizationAssetValues:
+    - text: 
+      sprite: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 283ca1f3112da4f4ea91ba44520eb7dd, type: 3}
+    - text: 
+      sprite: {fileID: 21300002, guid: 79b95fdecc93b474eab20cdc23d2d415, type: 3}
+      audioClip: {fileID: 0}
+    - text: 
+      sprite: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 1cbd7881bb52a4b24ba53f7ee709d341, type: 3}
+    - text: "\u5F00\u59CB"
+      sprite: {fileID: 0}
+      audioClip: {fileID: 0}
+    - text: "\u9000\u51FA"
+      sprite: {fileID: 0}
+      audioClip: {fileID: 0}
+  localizationAssetKeys:
+  - key: click
+    localizationType: 2
+  - key: sprite
+    localizationType: 1
+  - key: ding
+    localizationType: 2
+  - key: start
+    localizationType: 0
+  - key: exit
+    localizationType: 0

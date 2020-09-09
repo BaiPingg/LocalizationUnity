@@ -5,31 +5,36 @@ using UnityEngine.UI;
 
 namespace Localization
 {
-    [RequireComponent(typeof(Text))]
-    public class LocalizationText : MonoBehaviour
+        [RequireComponent(typeof(Image))]
+    public class LocalizationImage : MonoBehaviour
     {
-        private Text text;
+
+        private Image render;
         [SerializeField]
         private string key;
         [HideInInspector]
-       public int choiceIndex  =0;
+        public int choiceIndex = 0;
         public void SetKey(string key)
         {
             this.key = key;
-         }
+        }
         public string Key
         {
             get { return key; }
             set
             {
                 key = value;
-                text = GetComponent<Text>();
-                text.text = LocalizationMgr.Instance.GetValue(Key, LocalizationMgr.Instance.CurrLanguage).text;
+                render = GetComponent<Image>();
+
+                render.sprite = LocalizationMgr.Instance.GetValue(Key, LocalizationMgr.Instance.CurrLanguage).sprite;
             }
         }
+
+
+
         private void Start()
         {
-            text = GetComponent<Text>();
+            render = GetComponent<Image>();
             if (string.IsNullOrEmpty(key))
             {
 
@@ -37,12 +42,12 @@ namespace Localization
                 return;
             }
 
-            text.text = LocalizationMgr.Instance.GetValue(Key, LocalizationMgr.Instance.CurrLanguage).text;
+            render.sprite = LocalizationMgr.Instance.GetValue(Key, LocalizationMgr.Instance.CurrLanguage).sprite;
         }
 
         private void OnEnable()
         {
-           
+
             LocalizationMgr.Instance.OnLanguageChanged += ChangeLanguage;
         }
         private void OnDisable()
@@ -53,14 +58,10 @@ namespace Localization
 
         public void ChangeLanguage(SystemLanguage lang)
         {
-            //Debug.LogError(lang);
-            text = GetComponent<Text>();
-            text.text = LocalizationMgr.Instance.GetValue(Key, LocalizationMgr.Instance.CurrLanguage).text;
-            //Debug.LogError(text.text);
-            //Debug.LogError(LocalizationMgr.Instance.CurrLanguage);
+
+            render = GetComponent<Image>();
+            render.sprite = LocalizationMgr.Instance.GetValue(Key, LocalizationMgr.Instance.CurrLanguage).sprite;
         }
-
-
 
     }
 }

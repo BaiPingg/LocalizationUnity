@@ -10,11 +10,22 @@ namespace Localization
     public class LocalizationTextEditor : Editor
     {
         LocalizationText asset;
+        List<string> strs = new List<string>();
 
         private void Awake()
         {
 
             asset = (LocalizationText)target;
+            
+            for (int i = 0; i < LocalizationMgr.Instance.asset.localizationAssetKeys.Length; i++)
+            {
+                if (LocalizationMgr.Instance.asset.localizationAssetKeys[i].localizationType == LocalizationAssetType.text)
+                {
+                    strs.Add(LocalizationMgr.Instance.asset.localizationAssetKeys[i].key);
+                }
+               
+              
+            }
 
         }
         public override void OnInspectorGUI()
@@ -23,10 +34,10 @@ namespace Localization
             DrawDefaultInspector();
 
 
-            asset.choiceIndex = EditorGUILayout.Popup("Key", asset.choiceIndex, LocalizationMgr.Instance.asset.keys);
-            asset.SetKey (LocalizationMgr.Instance.asset.keys[asset.choiceIndex]);
+            asset.choiceIndex = EditorGUILayout.Popup("Key", asset.choiceIndex, strs.ToArray());
+            asset.SetKey (strs[asset.choiceIndex]);
 
-            asset.GetComponent<Text>().text = LocalizationMgr.Instance.GetValue(asset.Key,LocalizationMgr.Instance.CurrLanguage);
+            asset.GetComponent<Text>().text = LocalizationMgr.Instance.GetValue(asset.Key,LocalizationMgr.Instance.CurrLanguage).text;
             EditorUtility.SetDirty(asset);
         }
 

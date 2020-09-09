@@ -1,9 +1,11 @@
 ﻿using System;
 using UnityEngine;
 using Localization;
+using System.Reflection;
 
 public class LocalizationMgr : MonoBehaviour
 {
+    public string saveKey = "localizationlanguage"; 
     public MyLocalizationAsset asset;
     static LocalizationMgr instance;
     public Action<SystemLanguage> OnLanguageChanged;
@@ -59,19 +61,19 @@ public class LocalizationMgr : MonoBehaviour
         InitLanguage();
     }
 
-    public string GetValue (string key ,SystemLanguage lang)
+    public LocalizationAssetValue GetValue (string key ,SystemLanguage lang)
     { var haskey = false;
         int keyindex=0, langindex =0;
         var haslanguage = false;
         if (asset == null)
         {
             Debug.LogError("LocalizationAsset is  null, please check asset");
-            return "";
+            return null;
         }
 
-        for (int i = 0; i < asset.keys.Length; i++)
+        for (int i = 0; i < asset.localizationAssetKeys.Length; i++)
         {
-            if (asset.keys[i] == key)
+            if (asset.localizationAssetKeys[i].key == key)
             {
                 haskey = true;
                 keyindex = i;
@@ -80,7 +82,7 @@ public class LocalizationMgr : MonoBehaviour
         if (haskey == false)
         {
             Debug.LogError("Not contains thy key:" + key);
-            return "";
+            return null;
         }
 
         for (int i = 0; i < asset.languageInfos.Length; i++)
@@ -94,15 +96,14 @@ public class LocalizationMgr : MonoBehaviour
         if (haslanguage == false)
         {
             Debug.LogError("Not contains thy language:" + lang);
-            //currLanguage = SystemLanguage.English;
-            //return GetValue(key ,lang);
-            return "";
+          
+            return null;
         }
         if (haslanguage ==true && haskey == true)
         {
-            return asset.languageInfos[langindex].stringInfo[keyindex].value;
+            return asset.languageInfos[langindex].localizationAssetValues[keyindex];
         }
-        return "";
+        return null;
 
     }
 
@@ -121,26 +122,33 @@ public class LocalizationMgr : MonoBehaviour
 
    public void InitLanguage()
     {
-        var containsSysLanguage = false;
-        var index = 0;
-        for (int i = 0; i < asset.languageInfos.Length; i++)
+      
+        SystemLanguage lang = String2Language(PlayerPrefs.GetString(saveKey));
+        currLanguage = lang;
+        
+    }
+
+    public static SystemLanguage String2Language(string str)
+    {
+        FieldInfo[] fields = typeof(SystemLanguage).GetFields();
+        for (int i = 0; i < fields.Length; i++)
         {
-            if (asset.languageInfos[i].language == Application.systemLanguage)
+            if (i > 0)
             {
-                containsSysLanguage = true;
-                index = i;
-
+               
+                var index = (int)fields[i].GetValue(null);
+                if (str == ((SystemLanguage)index).ToString())
+                {
+                    return (SystemLanguage)index;
+                }
             }
+           
         }
+        return SystemLanguage.English;
+    }
 
-        if (containsSysLanguage == true)
-        {
-            currLanguage = asset.languageInfos[index].language;
-            Debug.Log("current language:" + Application.systemLanguage.ToString());
-        }
-        else
-        {
-            currLanguage = SystemLanguage.English;
-        }
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetString(saveKey, currLanguage.ToString());
     }
 }

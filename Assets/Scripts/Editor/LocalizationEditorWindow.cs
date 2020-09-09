@@ -20,57 +20,55 @@ namespace Localization
         }
         void OnGUI()
         {
-           
+
 
             if (GUILayout.Button("+", GUILayout.MaxWidth(100)))
             {
                 var info = new LanguageInfo();
-                info.stringInfo = new StringKeyValue[asset.keys.Length];
-                for (int i = 0; i < info.stringInfo.Length; i++)
+                info.localizationAssetValues = new LocalizationAssetValue[asset.localizationAssetKeys.Length];
+                for (int i = 0; i < info.localizationAssetValues.Length; i++)
                 {
-                    info.stringInfo[i].key = asset.keys[i];
-                    info.stringInfo[i].value = "";
+                    info.localizationAssetValues[i] = new LocalizationAssetValue();
+                    info.localizationAssetValues[i].text = "";
+                    info.localizationAssetValues[i].sprite = null;
+                    info.localizationAssetValues[i].audioClip = null;
                 }
-                asset.languageInfos = AddElement<LanguageInfo>(asset.languageInfos,info);
-                
+                asset.languageInfos = AddElement<LanguageInfo>(asset.languageInfos, info);
+
             }
             EditorGUILayout.BeginScrollView(scrollPos);
             EditorGUILayout.BeginHorizontal("box");
 
-            EditorGUILayout.BeginVertical("box",GUILayout.MaxWidth(300));
+            EditorGUILayout.BeginVertical("box", GUILayout.MaxWidth(300));
             EditorGUILayout.LabelField("Keys");
-            for (int i = 0; i < asset.keys.Length; i++)
+            for (int i = 0; i < asset.localizationAssetKeys.Length; i++)
             {
                 EditorGUILayout.BeginHorizontal();
                 if (GUILayout.Button("-", GUILayout.MaxWidth(50)))
                 {
-                    asset.keys = RemoveElement<string>(asset.keys, asset.keys[i]);
+                    asset.localizationAssetKeys = RemoveElement(asset.localizationAssetKeys, asset.localizationAssetKeys[i]);
                     for (int k = 0; k < asset.languageInfos.Length; k++)
                     {
-                        asset.languageInfos[k].stringInfo = RemoveElement<StringKeyValue>(asset.languageInfos[k].stringInfo, asset.languageInfos[k].stringInfo[i]);
+                        asset.languageInfos[k].localizationAssetValues = RemoveElement(asset.languageInfos[k].localizationAssetValues, asset.languageInfos[k].localizationAssetValues[i]);
                     }
                 }
                 else
                 {
-                    asset.keys[i] = EditorGUILayout.TextField(asset.keys[i], GUILayout.Height(25));
-                    //for (int m = 0; i < asset.languageInfos.Length; m++)
-                    //{
-                        
-                    //        asset.languageInfos[m].stringInfo[i].key = asset.keys[i];
-                       
-                       
-                    //}
+                    asset.localizationAssetKeys[i].key = EditorGUILayout.TextField(asset.localizationAssetKeys[i].key, GUILayout.Height(25));
+                    asset.localizationAssetKeys[i].localizationType =
+                        (LocalizationAssetType)EditorGUILayout.EnumPopup(asset.localizationAssetKeys[i].localizationType, GUILayout.MaxWidth(200));
+                  
                 }
-               
-               
+
+
                 EditorGUILayout.EndHorizontal();
             }
             if (GUILayout.Button("+", GUILayout.MaxWidth(100)))
             {
-                asset.keys = AddElement<string>(asset.keys, "");
+                asset.localizationAssetKeys = AddElement(asset.localizationAssetKeys, new LocalizationAssetKey());
                 for (int i = 0; i < asset.languageInfos.Length; i++)
                 {
-                    asset.languageInfos[i].stringInfo = AddElement<StringKeyValue>(asset.languageInfos[i].stringInfo, new StringKeyValue("", ""));
+                    asset.languageInfos[i].localizationAssetValues = AddElement(asset.languageInfos[i].localizationAssetValues, new LocalizationAssetValue( ));
                 }
             }
 
@@ -79,29 +77,51 @@ namespace Localization
             for (int j = 0; j < asset.languageInfos.Length; j++)
             {
                 #region MyRegion
-               
+
                 EditorGUILayout.BeginVertical("box", GUILayout.MaxWidth(300));
-               
+
                 #region MyRegion
 
-               
+
                 EditorGUILayout.BeginHorizontal();
                 asset.languageInfos[j].language = (SystemLanguage)EditorGUILayout.EnumPopup("Language:", asset.languageInfos[j].language, GUILayout.MaxWidth(200));
 
 
                 if (GUILayout.Button("-", GUILayout.MaxWidth(50)))
                 {
-                    asset.languageInfos = RemoveElement<LanguageInfo>(asset.languageInfos, asset.languageInfos[j]);
-                   
+                    asset.languageInfos = RemoveElement(asset.languageInfos, asset.languageInfos[j]);
+
                 }
                 else
                 {
                     EditorGUILayout.EndHorizontal();
-                    #endregion
-                    for (int i = 0; i < asset.languageInfos[j].stringInfo.Length; i++)
+                    for (int i = 0; i < asset.localizationAssetKeys.Length; i++)
                     {
-                        asset.languageInfos[j].stringInfo[i].value = EditorGUILayout.TextField(asset.languageInfos[j].stringInfo[i].value, GUILayout.Height(25));
+                        switch (asset.localizationAssetKeys[i].localizationType)
+                        {
+                            case LocalizationAssetType.text:
+
+                                asset.languageInfos[j].localizationAssetValues[i].text = EditorGUILayout.TextField(asset.languageInfos[j].localizationAssetValues[i].text, GUILayout.Height(25));
+
+                                break;
+                            case LocalizationAssetType.sprite:
+
+                                asset.languageInfos[j].localizationAssetValues[i].sprite = (Sprite)EditorGUILayout.ObjectField(asset.languageInfos[j].localizationAssetValues[i].sprite, typeof(Sprite), GUILayout.Height(25));
+
+                                break;
+                            case LocalizationAssetType.audio:
+
+                                asset.languageInfos[j].localizationAssetValues[i].audioClip = (AudioClip)EditorGUILayout.ObjectField(asset.languageInfos[j].localizationAssetValues[i].audioClip, typeof(AudioClip), GUILayout.Height(25));
+
+                                break;
+
+                        }
+
+
+                        #endregion
+
                     }
+                  
                     EditorGUILayout.EndVertical();
                     #endregion
                 }
@@ -152,7 +172,7 @@ namespace Localization
             elementsList.Add(element);
             return elementsList.ToArray();
         }
-      
+
 
     }
 }
