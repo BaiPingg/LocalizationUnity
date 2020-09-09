@@ -22,8 +22,8 @@ MonoBehaviour:
     - key: 
       value: menu
     - key: 
-      value: 
-  - language: 40
+      value: hello,iam iron man
+  - language: 6
     stringInfo:
     - key: 
       value: "\u5F00\u59CB"
@@ -32,9 +32,19 @@ MonoBehaviour:
     - key: 
       value: "\u83DC\u5355"
     - key: 
-      value: 
+      value: "\u4F60\u597D\uFF01\u6211\u662F\u94A2\u94C1\u4FA0\u3002"
+  - language: 14
+    stringInfo:
+    - key: start
+      value: begin
+    - key: exit
+      value: quit
+    - key: menu
+      value: food
+    - key: hello,iam iron man
+      value: i am spider man!
   keys:
   - start
   - exit
   - menu
-  - 
+  - hello,iam iron man

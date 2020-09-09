@@ -15,7 +15,7 @@ namespace Localization
 
         public override void OnInspectorGUI()
         {
-
+        
             if (GUILayout.Button("Open in editor"))
             {
                 LocalizationEditorWindow.Init(asset);

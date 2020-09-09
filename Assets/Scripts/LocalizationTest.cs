@@ -7,29 +7,27 @@ using UnityEngine.UI;
 
 public class LocalizationTest : MonoBehaviour
 {
-    public MyLocalizationAsset asset;
-    public Text text;
-    public SystemLanguage currLanguage;
+    public Dropdown dropdown;
+
     private void Start()
     {
-        
-            for (int i = 0; i < asset.languageInfos.Length; i++)
-            {
-                if (currLanguage == asset.languageInfos[i].language)
-                {
-                Generate(asset.languageInfos[i].stringInfo);
-                }
-            }
-        
+        dropdown.ClearOptions();
+        List<Dropdown.OptionData> options = new List<Dropdown.OptionData>();
+
+
+        for (int i = 0; i < LocalizationMgr.Instance.asset.languageInfos.Length; i++)
+        {
+            var op = new Dropdown.OptionData();
+            op.text = LocalizationMgr.Instance.asset.languageInfos[i].language.ToString();
+            options.Add(op);
+        }
+        dropdown.AddOptions(options);
+        dropdown.onValueChanged.AddListener(ChangeValue);
+        dropdown.value = LocalizationMgr.Instance.GetCurrentLanguageIndex();
     }
 
-    public void  Generate(StringKeyValue[] info)
+    void ChangeValue(int index)
     {
-        for (int i = 0; i < info.Length; i++)
-        {
-            var _text = GameObject.Instantiate(text, text.transform.parent);
-            _text.text = info[i].key + " : " + info[i].value;
-            _text.gameObject.SetActive(true);
-        }
+        LocalizationMgr.Instance.CurrLanguage = LocalizationMgr.Instance.asset.languageInfos[index].language;
     }
 }
