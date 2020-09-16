@@ -30,6 +30,12 @@ MonoBehaviour:
     - text: exit
       sprite: {fileID: 0}
       audioClip: {fileID: 0}
+    - text: hello
+      sprite: {fileID: 0}
+      audioClip: {fileID: 0}
+    - text: i am fine
+      sprite: {fileID: 0}
+      audioClip: {fileID: 0}
   - language: 6
     localizationAssetValues:
     - text: 
@@ -47,6 +53,12 @@ MonoBehaviour:
     - text: "\u9000\u51FA"
       sprite: {fileID: 0}
       audioClip: {fileID: 0}
+    - text: "\u4F60\u597D"
+      sprite: {fileID: 0}
+      audioClip: {fileID: 0}
+    - text: "\u6211\u5F88\u597D"
+      sprite: {fileID: 0}
+      audioClip: {fileID: 0}
   localizationAssetKeys:
   - key: click
     localizationType: 2
@@ -57,4 +69,8 @@ MonoBehaviour:
   - key: start
     localizationType: 0
   - key: exit
+    localizationType: 0
+  - key: hello
+    localizationType: 0
+  - key: im fine
     localizationType: 0
